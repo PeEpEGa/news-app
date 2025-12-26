@@ -21,7 +21,7 @@ export default function HighlightedText({ text, query }: Props) {
             key={index}
             component="mark"
             sx={{
-              backgroundColor: "primary.light",
+              backgroundColor: "yellow",
               color: "inherit",
               px: 0.25,
               borderRadius: 0.5,

@@ -1,7 +1,16 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Link,
+} from "@mui/material";
 import { formatLongDate } from "../utils/time/formatters";
 import type { News } from "../types";
 import HighlightedText from "./HighlightedText";
+import { Link as RouterLink } from "react-router";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 interface Props {
   news: News;
@@ -10,7 +19,18 @@ interface Props {
 
 export default function NewsCard({ news, searchQuery }: Props) {
   return (
-    <Card component="article">
+    <Card
+      component="article"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        transition: "transform 0.3s, box-shadow 0.3s",
+        "&:hover": {
+          transform: "translateY(-4px)",
+          boxShadow: 6,
+        },
+      }}
+    >
       <CardMedia
         component="img"
         image={news.image}
@@ -22,7 +42,14 @@ export default function NewsCard({ news, searchQuery }: Props) {
           objectFit: "cover",
         }}
       />
-      <CardContent sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+      <CardContent
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1,
+        }}
+      >
         <Typography variant="body2" component="time" dateTime={news.date}>
           {formatLongDate(news.date)}
         </Typography>
@@ -52,6 +79,28 @@ export default function NewsCard({ news, searchQuery }: Props) {
         >
           <HighlightedText text={news.description} query={searchQuery} />
         </Typography>
+
+        <Link
+          component={RouterLink}
+          to={`${news.id}`}
+          style={{ marginTop: "auto", textDecoration: "none" }}
+        >
+          <Box
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              fontWeight: "bold",
+              gap: 0.5,
+              color: "#1c1c1c",
+              "&:hover": {
+                color: "#333333",
+              },
+            }}
+          >
+            Read more
+            <ArrowForwardIcon fontSize="small" />
+          </Box>
+        </Link>
       </CardContent>
     </Card>
   );

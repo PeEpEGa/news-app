@@ -29,7 +29,7 @@ export default function DataGridLayout<T>({
   }
 
   if (error) {
-    return <Alert severity="error">Failed to load news</Alert>;
+    return <Alert severity="error">Failed to load data</Alert>;
   }
 
   if (data.length === 0) {
