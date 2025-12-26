@@ -1,12 +1,14 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { formatLongDate } from "../utils/time/formatters";
 import type { News } from "../types";
+import HighlightedText from "./HighlightedText";
 
 interface Props {
   news: News;
+  searchQuery: string;
 }
 
-export default function NewsCard({ news }: Props) {
+export default function NewsCard({ news, searchQuery }: Props) {
   return (
     <Card component="article">
       <CardMedia
@@ -35,7 +37,7 @@ export default function NewsCard({ news }: Props) {
             overflow: "hidden",
           }}
         >
-          {news.title}
+          <HighlightedText text={news.title} query={searchQuery} />
         </Typography>
 
         <Typography
@@ -48,7 +50,7 @@ export default function NewsCard({ news }: Props) {
             overflow: "hidden",
           }}
         >
-          {news.description}
+          <HighlightedText text={news.description} query={searchQuery} />
         </Typography>
       </CardContent>
     </Card>
