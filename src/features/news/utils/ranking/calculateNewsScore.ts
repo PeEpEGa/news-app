@@ -1,8 +1,7 @@
 import type { News } from "../../types";
 
-export function calculateNewsScore(news: News, query: string) {
+export function calculateNewsScore(news: News, keywords: string[]) {
   let score = 0;
-  const keywords = query.toLowerCase().split(" ");
 
   for (const keyword of keywords) {
     if (news.title.toLowerCase().includes(keyword)) {

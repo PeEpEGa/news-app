@@ -14,10 +14,10 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 interface Props {
   news: News;
-  searchQuery: string;
+  keywords: string[];
 }
 
-export default function NewsCard({ news, searchQuery }: Props) {
+export default function NewsCard({ news, keywords }: Props) {
   return (
     <Card
       component="article"
@@ -64,7 +64,7 @@ export default function NewsCard({ news, searchQuery }: Props) {
             overflow: "hidden",
           }}
         >
-          <HighlightedText text={news.title} query={searchQuery} />
+          <HighlightedText text={news.title} keywords={keywords} />
         </Typography>
 
         <Typography
@@ -77,7 +77,7 @@ export default function NewsCard({ news, searchQuery }: Props) {
             overflow: "hidden",
           }}
         >
-          <HighlightedText text={news.description} query={searchQuery} />
+          <HighlightedText text={news.description} keywords={keywords} />
         </Typography>
 
         <Link

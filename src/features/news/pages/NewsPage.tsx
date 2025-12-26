@@ -12,9 +12,13 @@ export default function NewsPage() {
   const { news, isLoading, error } = useNews();
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query);
+  const keywords = useMemo(
+    () => debouncedQuery.toLowerCase().split(/\s+/).filter(Boolean),
+    [debouncedQuery]
+  );
 
   const rankedNews = useMemo<RankedNews[]>(
-    () => rankNews(news, debouncedQuery),
+    () => rankNews(news, keywords),
     [news, debouncedQuery]
   );
 
@@ -41,7 +45,7 @@ export default function NewsPage() {
         error={error}
         isLoading={isLoading}
         renderItem={(news) => (
-          <NewsCard key={news.id} news={news} searchQuery={query}></NewsCard>
+          <NewsCard key={news.id} news={news} keywords={keywords}></NewsCard>
         )}
       />
     </Box>

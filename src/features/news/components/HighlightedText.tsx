@@ -2,21 +2,23 @@ import { Box, Typography } from "@mui/material";
 
 interface Props {
   text: string;
-  query: string;
+  keywords: string[];
 }
 
-export default function HighlightedText({ text, query }: Props) {
-  if (!query) return <>{text}</>;
+export default function HighlightedText({ text, keywords }: Props) {
+  if (!keywords.length) return <>{text}</>;
 
-  const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const regex = new RegExp(`(${escapedQuery})`, "gi");
+  const escapedKeywords = keywords.map((kw) =>
+    kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  );
+
+  const regex = new RegExp(`(${escapedKeywords.join("|")})`, "gi");
   const parts = text.split(regex);
-  const queryLower = query.toLowerCase();
 
   return (
     <>
       {parts.map((part, index) =>
-        part.toLowerCase() === queryLower ? (
+        keywords.some((kw) => kw.toLowerCase() === part.toLowerCase()) ? (
           <Box
             key={index}
             component="mark"
